@@ -52,7 +52,7 @@ public:
   Buffer(const Buffer &) = delete;
   Buffer(const Buffer &&) = delete;
   Buffer &operator=(const Buffer &) = delete;
-  Buffer &operator=(Buffer &&other);
+  Buffer &operator=(Buffer &&other) = delete;
 
 public:
   void *getData();
