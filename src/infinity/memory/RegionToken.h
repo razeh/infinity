@@ -35,13 +35,13 @@ public:
   uint32_t getLocalKey() const;
   uint32_t getRemoteKey() const;
 
-protected:
+private:
   Region *memoryRegion = nullptr;
-  const RegionType memoryRegionType = UNKNOWN;
-  const uint64_t sizeInBytes = 0;
-  const uint64_t address = 0;
-  const uint32_t localKey = 0;
-  const uint32_t remoteKey = 0;
+  RegionType memoryRegionType = UNKNOWN;
+  uint64_t sizeInBytes = 0;
+  uint64_t address = 0;
+  uint32_t localKey = 0;
+  uint32_t remoteKey = 0;
 };
 
 std::ostream &operator<<(std::ostream &os, const RegionToken &regionToken);
