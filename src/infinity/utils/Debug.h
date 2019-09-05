@@ -17,8 +17,8 @@
 #ifdef INFINITY_DEBUG_ON
 #define INFINITY_DEBUG(X, ...)                                                 \
   {                                                                            \
-    fprintf(stdout, X, ##__VA_ARGS__);                                         \
-    fflush(stdout);                                                            \
+    fprintf(stderr, X, ##__VA_ARGS__);                                         \
+    fflush(stderr);                                                            \
   }
 #else
 #define INFINITY_DEBUG(X, ...)                                                 \
