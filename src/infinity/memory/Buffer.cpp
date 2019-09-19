@@ -109,19 +109,20 @@ Buffer::~Buffer() {
 
 void *Buffer::getData() { return reinterpret_cast<void *>(this->getAddress()); }
 
-void Buffer::resize(uint64_t newSize, void *newData) {
+void Buffer::resize(uint64_t newSize) {
 
   void *oldData = this->data;
   uint64_t oldSize = this->sizeInBytes;
 
-  if (newData == nullptr) {
-    newData = this->data;
-  }
+  void *newData = nullptr;
+  int res = posix_memalign(&(newData), infinity::core::Configuration::PAGE_SIZE,
+                           newSize);
+  INFINITY_ASSERT(
+      res == 0,
+      "[INFINITY][MEMORY][BUFFER] Cannot allocate and align buffer.\n");
 
-  if (oldData != newData) {
-    uint64_t copySize = std::min(newSize, oldSize);
-    memcpy(newData, oldData, copySize);
-  }
+  uint64_t copySize = std::min(newSize, oldSize);
+  memcpy(newData, oldData, copySize);
 
   if (memoryRegistered) {
     ibv_dereg_mr(this->ibvMemoryRegion);
@@ -133,6 +134,10 @@ void Buffer::resize(uint64_t newSize, void *newData) {
                     "[INFINITY][MEMORY][BUFFER] Registration failed.\n");
     this->data = newData;
     this->sizeInBytes = newSize;
+    if (this->memoryAllocated) {
+      free(oldData);
+    }
+    this->memoryAllocated = true;
   } else {
     INFINITY_ASSERT(false, "[INFINITY][MEMORY][BUFFER] You can only resize "
                            "memory which has registered by this buffer.\n");

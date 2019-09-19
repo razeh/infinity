@@ -56,7 +56,7 @@ public:
 
 public:
   void *getData();
-  void resize(uint64_t newSize, void *newData = nullptr);
+  void resize(uint64_t newSize);
 
 public:
   std::shared_ptr<Buffer> getptr() { return shared_from_this(); }
