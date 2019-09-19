@@ -19,8 +19,8 @@ namespace memory {
 
 std::shared_ptr<Buffer>
 Buffer::createBuffer(std::shared_ptr<infinity::core::Context> context,
-                     uint64_t sizeInBytes) {
-  return std::make_shared<Buffer>(context, sizeInBytes, Token());
+                     uint64_t sizeInBytes, bool zero_memory) {
+  return std::make_shared<Buffer>(context, sizeInBytes, zero_memory, Token());
 }
 
 std::shared_ptr<Buffer>
@@ -38,7 +38,7 @@ Buffer::createBuffer(std::shared_ptr<infinity::core::Context> context,
 }
 
 Buffer::Buffer(std::shared_ptr<infinity::core::Context> context,
-               uint64_t sizeInBytes, Token) {
+               uint64_t sizeInBytes, bool zero_memory, Token) {
 
   this->context = context;
   this->sizeInBytes = sizeInBytes;
@@ -50,7 +50,9 @@ Buffer::Buffer(std::shared_ptr<infinity::core::Context> context,
       res == 0,
       "[INFINITY][MEMORY][BUFFER] Cannot allocate and align buffer.\n");
 
-  memset(this->data, 0, sizeInBytes);
+  if (zero_memory) {
+    memset(this->data, 0, sizeInBytes);
+  }
 
   this->ibvMemoryRegion = ibv_reg_mr(
       this->context->getProtectionDomain(), this->data, this->sizeInBytes,

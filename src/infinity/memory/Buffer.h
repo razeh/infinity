@@ -32,7 +32,7 @@ private:
 public:
   static std::shared_ptr<Buffer>
   createBuffer(std::shared_ptr<infinity::core::Context> context,
-               uint64_t sizeInBytes);
+               uint64_t sizeInBytes, bool zero_memory = true);
   static std::shared_ptr<Buffer>
   createBuffer(std::shared_ptr<infinity::core::Context> context,
                infinity::memory::RegisteredMemory *memory, uint64_t offset,
@@ -42,7 +42,7 @@ public:
                uint64_t sizeInBytes);
 
   Buffer(std::shared_ptr<infinity::core::Context> context, uint64_t sizeInBytes,
-         Token);
+         bool zero_memory, Token);
   Buffer(std::shared_ptr<infinity::core::Context> context,
          infinity::memory::RegisteredMemory *memory, uint64_t offset,
          uint64_t sizeInBytes, Token);
