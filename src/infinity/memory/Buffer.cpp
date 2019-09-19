@@ -129,6 +129,8 @@ void Buffer::resize(uint64_t newSize, void *newData) {
         ibv_reg_mr(this->context->getProtectionDomain(), newData, newSize,
                    IBV_ACCESS_REMOTE_WRITE | IBV_ACCESS_LOCAL_WRITE |
                        IBV_ACCESS_REMOTE_READ);
+    INFINITY_ASSERT(this->ibvMemoryRegion != nullptr,
+                    "[INFINITY][MEMORY][BUFFER] Registration failed.\n");
     this->data = newData;
     this->sizeInBytes = newSize;
   } else {
