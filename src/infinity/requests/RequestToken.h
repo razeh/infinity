@@ -28,7 +28,9 @@ public:
   void setRegion(std::shared_ptr<infinity::memory::Region> region);
   std::shared_ptr<infinity::memory::Region> getRegion();
 
-  void setCompleted(bool success);
+  void setStatus(ibv_wc_status);
+  const char *getStatusString() const;
+  ibv_wc_status getStatus() const;
   bool wasSuccessful();
 
   bool checkIfCompleted();
@@ -53,7 +55,9 @@ protected:
   std::shared_ptr<infinity::memory::Region> region;
 
   std::atomic<bool> completed;
-  std::atomic<bool> success;
+  // The int is really a ibv_wc_status, but we need ibv_wc_status +
+  // uninitialized.
+  std::atomic<int> status;
 
   void *userData = nullptr;
   uint32_t userDataSize = 0;

@@ -13,7 +13,7 @@ namespace requests {
 
 RequestToken::RequestToken(std::shared_ptr<infinity::core::Context> context)
     : context(context) {
-  this->success.store(false);
+  this->status.store(-1);
   this->completed.store(false);
   this->region = nullptr;
   this->userData = nullptr;
@@ -23,9 +23,20 @@ RequestToken::RequestToken(std::shared_ptr<infinity::core::Context> context)
   this->immediateValueValid = false;
 }
 
-void RequestToken::setCompleted(bool success) {
-  this->success.store(success);
+void RequestToken::setStatus(ibv_wc_status status) {
+  this->status.store(status);
   this->completed.store(true);
+}
+
+ibv_wc_status RequestToken::getStatus() const {
+  return ibv_wc_status(this->status.load());
+}
+
+const char *RequestToken::getStatusString() const {
+  if (this->status == -1) {
+    return "Status not set";
+  }
+  return ibv_wc_status_str(this->getStatus());
 }
 
 bool RequestToken::checkIfCompleted() {
@@ -43,10 +54,12 @@ void RequestToken::waitUntilCompleted() {
   }
 }
 
-bool RequestToken::wasSuccessful() { return this->success.load(); }
+bool RequestToken::wasSuccessful() {
+  return this->status.load() == IBV_WC_SUCCESS;
+}
 
 void RequestToken::reset() {
-  this->success.store(false);
+  this->status.store(-1);
   this->completed.store(false);
   this->region = nullptr;
   this->userData = nullptr;

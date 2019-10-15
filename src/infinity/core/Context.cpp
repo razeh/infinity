@@ -206,7 +206,7 @@ bool Context::pollSendCompletionQueue() {
     infinity::requests::RequestToken *request =
         reinterpret_cast<infinity::requests::RequestToken *>(wc.wr_id);
     if (request != nullptr) {
-      request->setCompleted(wc.status == IBV_WC_SUCCESS);
+      request->setStatus(wc.status);
     }
 
     if (wc.status == IBV_WC_SUCCESS) {
