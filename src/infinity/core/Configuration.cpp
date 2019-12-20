@@ -18,12 +18,12 @@ infinity::core::Configuration::recvCompletionQueueLength(Context *context) {
 }
 
 uint32_t infinity::core::Configuration::sendCompletionQueueLength(
-    std::shared_ptr<Context> &context) {
+    const std::shared_ptr<Context> &context) {
   return sendCompletionQueueLength(context.get());
 }
 
 uint32_t infinity::core::Configuration::recvCompletionQueueLength(
-    std::shared_ptr<Context> &context) {
+    const std::shared_ptr<Context> &context) {
   return recvCompletionQueueLength(context.get());
 }
 

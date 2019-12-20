@@ -51,7 +51,7 @@ public:
   /**
    * Constructor
    */
-  QueuePair(std::shared_ptr<infinity::core::Context> context);
+  QueuePair(const std::shared_ptr<infinity::core::Context>& context);
 
   /**
    * Destructor
@@ -95,35 +95,35 @@ public:
    * Buffer operations
    */
 
-  void send(std::shared_ptr<infinity::memory::Buffer> buffer,
+  void send(const std::shared_ptr<infinity::memory::Buffer>& buffer,
             infinity::requests::RequestToken *requestToken = nullptr);
-  void send(std::shared_ptr<infinity::memory::Buffer> buffer,
+  void send(const std::shared_ptr<infinity::memory::Buffer>& buffer,
             uint32_t sizeInBytes,
             infinity::requests::RequestToken *requestToken = nullptr);
-  void send(std::shared_ptr<infinity::memory::Buffer> buffer,
+  void send(const std::shared_ptr<infinity::memory::Buffer>& buffer,
             uint64_t localOffset, uint32_t sizeInBytes, OperationFlags flags,
             infinity::requests::RequestToken *requestToken = nullptr);
 
-  void write(std::shared_ptr<infinity::memory::Buffer> buffer,
+  void write(const std::shared_ptr<infinity::memory::Buffer>& buffer,
              const infinity::memory::RegionToken &destination,
              infinity::requests::RequestToken *requestToken = nullptr);
-  void write(std::shared_ptr<infinity::memory::Buffer> buffer,
+  void write(const std::shared_ptr<infinity::memory::Buffer>& buffer,
              const infinity::memory::RegionToken &destination,
              uint32_t sizeInBytes,
              infinity::requests::RequestToken *requestToken = nullptr);
-  void write(std::shared_ptr<infinity::memory::Buffer> buffer,
+  void write(const std::shared_ptr<infinity::memory::Buffer>& buffer,
              uint64_t localOffset,
              const infinity::memory::RegionToken &destination,
              uint64_t remoteOffset, uint32_t sizeInBytes, OperationFlags flags,
              infinity::requests::RequestToken *requestToken = nullptr);
 
-  void read(std::shared_ptr<infinity::memory::Buffer> buffer,
+  void read(const std::shared_ptr<infinity::memory::Buffer>& buffer,
             const infinity::memory::RegionToken &source,
             infinity::requests::RequestToken *requestToken = nullptr);
-  void read(std::shared_ptr<infinity::memory::Buffer> buffer,
+  void read(const std::shared_ptr<infinity::memory::Buffer>& buffer,
             const infinity::memory::RegionToken &source, uint32_t sizeInBytes,
             infinity::requests::RequestToken *requestToken = nullptr);
-  void read(std::shared_ptr<infinity::memory::Buffer> buffer,
+  void read(const std::shared_ptr<infinity::memory::Buffer>& buffer,
             uint64_t localOffset, const infinity::memory::RegionToken &source,
             uint64_t remoteOffset, uint32_t sizeInBytes, OperationFlags flags,
             infinity::requests::RequestToken *requestToken = nullptr);
@@ -140,13 +140,13 @@ public:
       OperationFlags flags,
       infinity::requests::RequestToken *requestToken = nullptr);
 
-  void sendWithImmediate(std::shared_ptr<infinity::memory::Buffer> buffer,
+  void sendWithImmediate(const std::shared_ptr<infinity::memory::Buffer>& buffer,
                          uint64_t localOffset, uint32_t sizeInBytes,
                          uint32_t immediateValue, OperationFlags flags,
                          infinity::requests::RequestToken *requestToken =
                              nullptr);
 
-  void writeWithImmediate(std::shared_ptr<infinity::memory::Buffer> buffer,
+  void writeWithImmediate(const std::shared_ptr<infinity::memory::Buffer>& buffer,
                           uint64_t localOffset,
                           const infinity::memory::RegionToken &destination,
                           uint64_t remoteOffset, uint32_t sizeInBytes,
@@ -177,7 +177,7 @@ public:
                    uint64_t add,
                    infinity::requests::RequestToken *requestToken = nullptr);
   void fetchAndAdd(const infinity::memory::RegionToken &destination,
-                   std::shared_ptr<infinity::memory::Atomic> previousValue,
+                   const std::shared_ptr<infinity::memory::Atomic>& previousValue,
                    uint64_t add, OperationFlags flags,
                    infinity::requests::RequestToken *requestToken = nullptr);
 

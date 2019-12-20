@@ -33,7 +33,7 @@ int OperationFlags::ibvFlags() {
   return flags;
 }
 
-QueuePair::QueuePair(std::shared_ptr<infinity::core::Context> context)
+QueuePair::QueuePair(const std::shared_ptr<infinity::core::Context>& context)
     : context(context) {
 
   ibv_qp_init_attr qpInitAttributes;
@@ -146,18 +146,18 @@ uint32_t QueuePair::getQueuePairNumber() { return this->ibvQueuePair->qp_num; }
 
 uint32_t QueuePair::getSequenceNumber() { return this->sequenceNumber; }
 
-void QueuePair::send(std::shared_ptr<infinity::memory::Buffer> buffer,
+void QueuePair::send(const std::shared_ptr<infinity::memory::Buffer>& buffer,
                      infinity::requests::RequestToken *requestToken) {
   send(buffer, 0, buffer->getSizeInBytes(), OperationFlags(), requestToken);
 }
 
-void QueuePair::send(std::shared_ptr<infinity::memory::Buffer> buffer,
+void QueuePair::send(const std::shared_ptr<infinity::memory::Buffer>& buffer,
                      uint32_t sizeInBytes,
                      infinity::requests::RequestToken *requestToken) {
   send(buffer, 0, sizeInBytes, OperationFlags(), requestToken);
 }
 
-void QueuePair::send(std::shared_ptr<infinity::memory::Buffer> buffer,
+void QueuePair::send(const std::shared_ptr<infinity::memory::Buffer>& buffer,
                      uint64_t localOffset, uint32_t sizeInBytes,
                      OperationFlags send_flags,
                      infinity::requests::RequestToken *requestToken) {
@@ -204,7 +204,7 @@ void QueuePair::send(std::shared_ptr<infinity::memory::Buffer> buffer,
 }
 
 void
-QueuePair::sendWithImmediate(std::shared_ptr<infinity::memory::Buffer> buffer,
+QueuePair::sendWithImmediate(const std::shared_ptr<infinity::memory::Buffer>& buffer,
                              uint64_t localOffset, uint32_t sizeInBytes,
                              uint32_t immediateValue, OperationFlags send_flags,
                              infinity::requests::RequestToken *requestToken) {
@@ -252,7 +252,7 @@ QueuePair::sendWithImmediate(std::shared_ptr<infinity::memory::Buffer> buffer,
       workRequest.wr_id);
 }
 
-void QueuePair::write(std::shared_ptr<infinity::memory::Buffer> buffer,
+void QueuePair::write(const std::shared_ptr<infinity::memory::Buffer>& buffer,
                       const infinity::memory::RegionToken &destination,
                       infinity::requests::RequestToken *requestToken) {
   write(buffer, 0, destination, 0, buffer->getSizeInBytes(), OperationFlags(),
@@ -264,14 +264,14 @@ void QueuePair::write(std::shared_ptr<infinity::memory::Buffer> buffer,
                   "transfer.\n");
 }
 
-void QueuePair::write(std::shared_ptr<infinity::memory::Buffer> buffer,
+void QueuePair::write(const std::shared_ptr<infinity::memory::Buffer>& buffer,
                       const infinity::memory::RegionToken &destination,
                       uint32_t sizeInBytes,
                       infinity::requests::RequestToken *requestToken) {
   write(buffer, 0, destination, 0, sizeInBytes, OperationFlags(), requestToken);
 }
 
-void QueuePair::write(std::shared_ptr<infinity::memory::Buffer> buffer,
+void QueuePair::write(const std::shared_ptr<infinity::memory::Buffer>& buffer,
                       uint64_t localOffset,
                       const infinity::memory::RegionToken &destination,
                       uint64_t remoteOffset, uint32_t sizeInBytes,
@@ -327,7 +327,7 @@ void QueuePair::write(std::shared_ptr<infinity::memory::Buffer> buffer,
 }
 
 void QueuePair::writeWithImmediate(
-    std::shared_ptr<infinity::memory::Buffer> buffer, uint64_t localOffset,
+    const std::shared_ptr<infinity::memory::Buffer>& buffer, uint64_t localOffset,
     const infinity::memory::RegionToken &destination, uint64_t remoteOffset,
     uint32_t sizeInBytes, uint32_t immediateValue, OperationFlags send_flags,
     infinity::requests::RequestToken *requestToken) {
@@ -519,7 +519,7 @@ void QueuePair::multiWriteWithImmediate(
       workRequest.wr_id);
 }
 
-void QueuePair::read(std::shared_ptr<infinity::memory::Buffer> buffer,
+void QueuePair::read(const std::shared_ptr<infinity::memory::Buffer>& buffer,
                      const infinity::memory::RegionToken &source,
                      infinity::requests::RequestToken *requestToken) {
   read(buffer, 0, source, 0, buffer->getSizeInBytes(), OperationFlags(),
@@ -531,14 +531,14 @@ void QueuePair::read(std::shared_ptr<infinity::memory::Buffer> buffer,
                   "transfer.\n");
 }
 
-void QueuePair::read(std::shared_ptr<infinity::memory::Buffer> buffer,
+void QueuePair::read(const std::shared_ptr<infinity::memory::Buffer>& buffer,
                      const infinity::memory::RegionToken &source,
                      uint32_t sizeInBytes,
                      infinity::requests::RequestToken *requestToken) {
   read(buffer, 0, source, 0, sizeInBytes, OperationFlags(), requestToken);
 }
 
-void QueuePair::read(std::shared_ptr<infinity::memory::Buffer> buffer,
+void QueuePair::read(const std::shared_ptr<infinity::memory::Buffer>& buffer,
                      uint64_t localOffset,
                      const infinity::memory::RegionToken &source,
                      uint64_t remoteOffset, uint32_t sizeInBytes,
@@ -654,7 +654,7 @@ void QueuePair::fetchAndAdd(const infinity::memory::RegionToken &destination,
 
 void
 QueuePair::fetchAndAdd(const infinity::memory::RegionToken &destination,
-                       std::shared_ptr<infinity::memory::Atomic> previousValue,
+                       const std::shared_ptr<infinity::memory::Atomic>& previousValue,
                        uint64_t add, OperationFlags send_flags,
                        infinity::requests::RequestToken *requestToken) {
 

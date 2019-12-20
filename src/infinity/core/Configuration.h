@@ -30,10 +30,10 @@ public:
                                                                // than MAX_CQE
 
   static uint32_t sendCompletionQueueLength(
-      std::shared_ptr<Context> &context); // Must be less than MAX_CQE
+      const std::shared_ptr<Context> &context); // Must be less than MAX_CQE
 
   static uint32_t recvCompletionQueueLength(
-      std::shared_ptr<Context> &context); // Must be less than MAX_CQE
+      const std::shared_ptr<Context> &context); // Must be less than MAX_CQE
 
   static uint32_t sharedRecvQueueLength(Context *context); // Must be less than
                                                            // MAX_SRQ_WR
