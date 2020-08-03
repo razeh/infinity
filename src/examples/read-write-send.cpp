@@ -8,6 +8,7 @@
 
 #include <cassert>
 #include <stdlib.h>
+#include <stdio.h>
 #include <unistd.h>
 
 #include <infinity/core/Context.h>
