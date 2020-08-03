@@ -77,7 +77,8 @@ QueuePair::QueuePair(const std::shared_ptr<infinity::core::Context>& context)
       "[INFINITY][QUEUES][QUEUEPAIR] Cannot transition to INIT state.\n");
 
   std::random_device randomGenerator;
-  this->sequenceNumber = randomGenerator();
+  std::uniform_int_distribution<int> range(0, 1<<24);
+  this->sequenceNumber = range(randomGenerator);
 
   defaultAtomic = std::make_shared<infinity::memory::Atomic>(context);
 }
