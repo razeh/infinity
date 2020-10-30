@@ -90,6 +90,16 @@ QueuePair::~QueuePair() noexcept(false) {
                   "[INFINITY][QUEUES][QUEUEPAIR] Cannot delete queue pair.\n");
 }
 
+void QueuePair::registerRemote(std::shared_ptr<QueuePair>& queuePair,
+                               std::shared_ptr<core::Context>& context,
+                               uint16_t remoteDeviceId,
+                               uint32_t remoteQueuePairNumber,
+                               uint32_t remoteSequenceNumber)
+{
+    queuePair->activate(remoteDeviceId, remoteQueuePairNumber, remoteSequenceNumber);
+    context->registerQueuePair(queuePair);
+}
+
 void QueuePair::activate(uint16_t remoteDeviceId,
                          uint32_t remoteQueuePairNumber,
                          uint32_t remoteSequenceNumber) {

@@ -63,7 +63,12 @@ public:
   QueuePair &operator=(const QueuePair &) = delete;
   QueuePair &operator=(QueuePair &&) = delete;
 
-protected:
+  static void registerRemote(std::shared_ptr<QueuePair>& queuePair,
+                             std::shared_ptr<core::Context>& context,
+                             uint16_t remoteDeviceId,
+                             uint32_t remoteQueuePairNumber,
+                             uint32_t remoteSequenceNumber);
+public:
   /**
    * Activation methods
    */
