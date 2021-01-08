@@ -190,7 +190,7 @@ bool Context::receive(std::shared_ptr<infinity::memory::Buffer> &buffer,
       immediateValueValid = false;
     }
 
-    queuePair = queuePairMap.at(wc.qp_num);
+    queuePair = queuePairMap.at(wc.qp_num).lock();
 
     return true;
   }

@@ -158,7 +158,7 @@ protected:
 protected:
   void
   registerQueuePair(std::shared_ptr<infinity::queues::QueuePair> queuePair);
-  std::unordered_map<uint32_t, std::shared_ptr<infinity::queues::QueuePair> >
+  std::unordered_map<uint32_t, std::weak_ptr<infinity::queues::QueuePair> >
   queuePairMap;
 };
 
